@@ -5,6 +5,7 @@
 #include "d3d9_backend.h"
 #include "namco_renderer.h"
 #include "cpu_profiler.h"
+#include "mod_engine.h"
 
 #define USE_D3D9_BACKEND 1
 #include <windows.h>
@@ -743,6 +744,8 @@ static LRESULT CALLBACK RenderWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
                 CpuProfiler_DumpReport();
             } else if (wParam == VK_F10) {
                 CpuProfiler_ToggleSpinloopFixes();
+            } else if (wParam == VK_F5) {
+                ModEngine_ForceRefresh();
             }
             break;
     }

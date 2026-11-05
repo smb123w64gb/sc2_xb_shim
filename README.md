@@ -53,10 +53,25 @@ NativeSC2.exe [optional_path_to.xbe] [options]
 | `--res <WxH>` / `--res=<WxH>` / `--resolution=<WxH>` | Sets an arbitrary internal resolution (`320x200` up to `7680x4320`) | `NativeSC2.exe --res 3840x2160` |
 | `--width <W>` (`-w`) / `--height <H>` (`-h`) | Sets width or height individually | `NativeSC2.exe -w 2560 -h 1440` |
 
-#### Display Mode
+#### Display & Modding Options
 | Flag | Description |
 | :--- | :--- |
-| `--fullscreen` / `-fullscreen` / `--borderless` / `-f` | Launches in borderless fullscreen mode |
+| `--fullscreen` / `-fullscreen` / `--borderless` / `-f` | Launches in borderless fullscreen mode (or toggle anytime with **F12** / **Alt+Enter**) |
+| `--log-files` / `--log` / `-l` | Live-logs all OLK container and sub-file loads in real time |
+
+### Built-In HLE OLK Mod Loader
+
+`NativeSC2` includes a built-in HLE OLK file replacement engine (compatible with the `SoulTools-2` 1-based OLK folder layout) with automatic in-RAM TOC expansion and live hot-reloading—no `.olk` or XISO rebuilding required:
+
+1. On first launch, a `mods\` folder is automatically created in your game directory with subfolders for each OLK container (`mods_xbox\` is also supported):
+   - `1_root` (`root`)
+   - `2_motinfo` (`motinfo`)
+   - `3_cpudata` (`cpudata`)
+   - `4_cdata` (`cdata`)
+   - `5_stage` (`stage`)
+   - `6_human` (`human`)
+2. Drop any replacement file named with its **1-based file number** (e.g., `001.bin`, `file_042.dat`) into the corresponding container folder.
+3. Files modified or added while the game is running are **hot-reloaded automatically** on the next stage/character load (or press **F5** at any time to force an immediate rescan).
 
 ---
 

@@ -24,6 +24,7 @@ add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
 add_library(NativeSC2_core SHARED
     src/loader/core_main.cpp
     src/loader/xbe_loader.cpp
+    src/loader/mod_engine.cpp
     src/kernel/xboxkrnl_shim.c
     src/kernel/xapi_shim.cpp
     src/renderer/nv2a_bridge.c

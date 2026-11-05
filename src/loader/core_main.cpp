@@ -8,6 +8,7 @@
 #include "xapi_shim.h"
 #include "audio_bridge.h"
 #include "cpu_profiler.h"
+#include "mod_engine.h"
 
 static void printCore(const char* msg) {
     DWORD written;
@@ -164,6 +165,7 @@ static BOOL WINAPI ConsoleCtrlHandler(DWORD ctrlType) {
 
 static char s_exeDir[MAX_PATH] = { 0 };
 static char s_resolvedXbePath[MAX_PATH] = { 0 };
+static BOOL s_logAllFileLoads = FALSE;
 
 static void InitExeAndGameDirectory(const char* userXbePath) {
     char exePath[MAX_PATH] = { 0 };
@@ -296,6 +298,9 @@ static void ParseCommandLineRenderConfig(void) {
         } else if ((_stricmp(tok, "--height") == 0 || _stricmp(tok, "-h") == 0) && i + 1 < numTokens) {
             uint32_t h = (uint32_t)atoi(tokens[++i]);
             if (h >= 200 && h <= 4320) renderH = h;
+        } else if (_stricmp(tok, "--log-files") == 0 || _stricmp(tok, "-log-files") == 0 ||
+                   _stricmp(tok, "--log") == 0 || _stricmp(tok, "-l") == 0) {
+            s_logAllFileLoads = TRUE;
         }
     }
 
@@ -355,6 +360,10 @@ extern "C" __declspec(dllexport) int NativeSC2_Run(const char* xbePath) {
 
     printCore("[CORE] Applying HLE patches...\n");
     Xbe_ApplyHlePatches();
+
+    printCore("[CORE] Initializing HLE OLK Mod Engine...\n");
+    ModEngine_Init(s_exeDir, s_logAllFileLoads);
+    ModEngine_InstallHooks();
 
     printCore("[CORE] Installing DirectSound audio bridge hooks...\n");
     Audio_InstallHooks();

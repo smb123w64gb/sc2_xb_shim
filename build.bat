@@ -12,6 +12,7 @@ echo [1/2] Compiling NativeSC2_core.dll (Base 0x10000000)...
 clang++ -m32 -shared -O2 -g -Wno-deprecated -Wno-microsoft-cast -D_CRT_SECURE_NO_WARNINGS -Iinclude -Isrc\renderer ^
     src\loader\core_main.cpp ^
     src\loader\xbe_loader.cpp ^
+    src\loader\mod_engine.cpp ^
     src\kernel\xboxkrnl_shim.c ^
     src\kernel\xapi_shim.cpp ^
     src\renderer\nv2a_bridge.c ^
