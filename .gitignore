@@ -30,3 +30,21 @@
 *.exe
 *.out
 *.app
+
+# Build & Debug Outputs
+bin/
+build/
+*.map
+*.pdb
+*.ilk
+*.exp
+*.log
+
+# Game Assets & Saves (Never commit game files)
+Save/
+*.xbe
+*.afs
+*.xmv
+*.sfd
+*.7z
+*.zip
